@@ -20,6 +20,7 @@ var _title: Label
 var _scroll: ScrollContainer
 var _log: VBoxContainer
 var _choices: VBoxContainer
+var _toasts: VBoxContainer
 var _data: Dictionary = {}
 var _is_open := false
 
@@ -37,6 +38,7 @@ func _ready() -> void:
 	_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_root)
 	_build_dialogue()
+	_build_toasts()
 	_build_hint()
 
 
@@ -103,6 +105,31 @@ func _build_dialogue() -> void:
 	_choices = VBoxContainer.new()
 	_choices.add_theme_constant_override("separation", 4)
 	vb.add_child(_choices)
+
+
+func _build_toasts() -> void:
+	_toasts = VBoxContainer.new()
+	_toasts.add_theme_constant_override("separation", 6)
+	_toasts.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_toasts.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP, Control.PRESET_MODE_MINSIZE, 44)
+	_toasts.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	_root.add_child(_toasts)
+
+
+## A short non-blocking notice at the top of the screen ("Picked up: ...").
+func toast(text: String, color: Color = FG) -> void:
+	var pc := PanelContainer.new()
+	pc.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	pc.add_theme_stylebox_override("panel", _box(color, BG, 2))
+	var l := Label.new()
+	l.text = text
+	l.add_theme_color_override("font_color", color)
+	pc.add_child(l)
+	_toasts.add_child(pc)
+	var tw := create_tween()
+	tw.tween_interval(2.4)
+	tw.tween_property(pc, "modulate:a", 0.0, 0.5)
+	tw.tween_callback(pc.queue_free)
 
 
 func _build_hint() -> void:

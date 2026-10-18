@@ -13,6 +13,7 @@ const MORALE_COLOR := Color("#4f9be0")
 const PANEL_BG := Color(0.04, 0.07, 0.06, 0.97)
 
 var _root: Control
+var _hud_layer: CanvasLayer
 var _sheet: PanelContainer
 var _sheet_body: VBoxContainer
 var _inv: PanelContainer
@@ -216,11 +217,21 @@ func _update_bars(health_pips: HBoxContainer, health_plus: Button, morale_pips: 
 
 
 func _build_hud() -> void:
+	# Health and morale live on a low layer so dialogue and menu windows draw over them.
+	_hud_layer = CanvasLayer.new()
+	_hud_layer.layer = 5
+	add_child(_hud_layer)
+	var hud_root := Control.new()
+	hud_root.theme = UIStyle.make_theme()
+	hud_root.set_anchors_preset(Control.PRESET_FULL_RECT)
+	hud_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_hud_layer.add_child(hud_root)
+
 	var box := PanelContainer.new()
 	box.add_theme_stylebox_override("panel", UIStyle.box(UIStyle.DIM.darkened(0.3), Color(0.04, 0.07, 0.06, 0.88), 1))
 	box.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT, Control.PRESET_MODE_MINSIZE, 12)
 	box.grow_vertical = Control.GROW_DIRECTION_BEGIN
-	_root.add_child(box)
+	hud_root.add_child(box)
 	var vb := VBoxContainer.new()
 	box.add_child(vb)
 	var h := _bar_row("HEALTH", HEALTH_COLOR, "health")

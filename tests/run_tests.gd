@@ -68,6 +68,9 @@ func _initialize() -> void:
 	var data_ok := true
 	for id in room["interactables"]:
 		var d: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/interactables/%s.json" % id))
+		if d.get("kind", "dialogue") != "dialogue":
+			data_ok = data_ok and FileAccess.file_exists(String(d["image"]))
+			continue
 		data_ok = data_ok and FileAccess.file_exists("res://assets/kenney_library/Isometric/%s_%s.png" % [d["sprite"], d["dir"]])
 		for entry in d["passives"] + d["actives"]:
 			data_ok = data_ok and skills.skills.has(entry["skill"]) and (typeof(entry["difficulty"]) != TYPE_STRING or skills.DIFFICULTIES.has(entry["difficulty"]))

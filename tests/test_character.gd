@@ -20,7 +20,7 @@ func _initialize() -> void:
 
 	# --- starting state -------------------------------------------------------
 	check(ch.money == 23 and ch.level == 2 and ch.xp == 40 and ch.skill_points == 2, "starting money, level, XP and skill points load")
-	check(ch.items.size() == 11, "11 items loaded (got %d)" % ch.items.size())
+	check(ch.items.size() == 12, "12 items loaded (got %d)" % ch.items.size())
 
 	# --- data validation ------------------------------------------------------
 	var items_ok := true

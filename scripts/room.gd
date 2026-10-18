@@ -2,7 +2,7 @@ extends Node2D
 ## The prototype room: floor, props, player, interactables, click-to-move.
 ##
 ## Everything in the room comes from data/room.json and data/interactables/*.json.
-## Controls: left-click to move or examine, E to examine something adjacent,
+## Controls: left-click to move, examine or pick up, E to examine something adjacent,
 ## C for the character sheet, I for the inventory, F1 for the debug grid,
 ## Esc closes whatever is open.
 
@@ -60,11 +60,15 @@ func _ready() -> void:
 
 	for id in room["interactables"]:
 		var data: Dictionary = _load_json("%s%s.json" % [INTERACTABLE_DIR, id])
+		if String(data.get("kind", "dialogue")) == "pickup" and GameState.has_flag("taken:%s" % data["id"]):
+			continue
 		var spr := _spawn_sprite(data, _entities)
 		click_targets.append({"sprite": spr, "data": data})
+		var blocking: bool = data.get("blocking", true)
 		for c in data.get("solid", [data["cell"]]):
 			var cell := Vector2i(int(c[0]), int(c[1]))
-			solid[cell] = true
+			if blocking:
+				solid[cell] = true
 			interactables[cell] = data
 
 	_setup_pathfinding()
@@ -103,9 +107,14 @@ func _load_json(path: String) -> Dictionary:
 
 func _spawn_sprite(d: Dictionary, parent: Node2D) -> Sprite2D:
 	var spr := Sprite2D.new()
-	spr.texture = load("%s%s_%s.png" % [SPRITE_DIR, d["sprite"], d["dir"]])
 	spr.centered = false
-	spr.offset = -Iso.SPRITE_ORIGIN
+	if d.has("image"):
+		# Standalone placeholder image: "origin" is the pixel that sits on the cell centre.
+		spr.texture = load(String(d["image"]))
+		spr.offset = -Vector2(float(d["origin"][0]), float(d["origin"][1]))
+	else:
+		spr.texture = load("%s%s_%s.png" % [SPRITE_DIR, d["sprite"], d["dir"]])
+		spr.offset = -Iso.SPRITE_ORIGIN
 	spr.position = Iso.cell_to_world(Vector2(float(d["cell"][0]), float(d["cell"][1])))
 	parent.add_child(spr)
 	return spr
@@ -213,9 +222,49 @@ func _on_player_arrived() -> void:
 		_open(data)
 
 
+## What happens when the player interacts with an object, by its "kind":
+## "pickup" goes into the inventory and leaves the room, "money" gives cash once,
+## anything else (the default, "dialogue") opens the dialogue panel.
 func _open(data: Dictionary) -> void:
 	pending = {}
-	ui.open(data)
+	match String(data.get("kind", "dialogue")):
+		"pickup":
+			_pick_up(data)
+		"money":
+			_loot_money(data)
+		_:
+			ui.open(data)
+
+
+func _pick_up(data: Dictionary) -> void:
+	var item_id := String(data["item"])
+	Character.add_item(item_id)
+	GameState.set_flag("taken:%s" % data["id"])
+	_remove_interactable(data)
+	ui.toast("Picked up: %s" % Character.item_name(item_id), UIStyle.GOOD)
+
+
+func _loot_money(data: Dictionary) -> void:
+	var key := "looted:%s" % data["id"]
+	if GameState.has_flag(key):
+		ui.toast("The %s is empty." % String(data["name"]).to_lower(), UIStyle.DIM)
+		return
+	GameState.set_flag(key)
+	var amount := int(data["amount"])
+	Character.add_money(amount)
+	ui.toast("+%s%d  from the %s" % [Character.currency, amount, String(data["name"]).to_lower()], UIStyle.GOOD)
+
+
+func _remove_interactable(data: Dictionary) -> void:
+	for cell in _cells_of(data):
+		interactables.erase(cell)
+		solid.erase(cell)
+		if astar.is_in_boundsv(cell):
+			astar.set_point_solid(cell, false)
+	for i in range(click_targets.size() - 1, -1, -1):
+		if is_same(click_targets[i]["data"], data):
+			click_targets[i]["sprite"].queue_free()
+			click_targets.remove_at(i)
 
 
 func _cells_of(data: Dictionary) -> Array[Vector2i]:

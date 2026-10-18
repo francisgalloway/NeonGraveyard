@@ -184,6 +184,14 @@ func unequip(slot: String) -> void:
 	changed.emit()
 
 
+func add_item(item_id: String) -> bool:
+	if not items.has(item_id):
+		return false
+	inventory.append(item_id)
+	changed.emit()
+	return true
+
+
 ## All clothes the player owns (worn first, in slot order), or all non-clothes items.
 func owned_items(type: String) -> Array[String]:
 	var out: Array[String] = []

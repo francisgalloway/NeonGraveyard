@@ -11,7 +11,7 @@ Open `project.godot` in Godot 4 and press F5.
 | Input | Action |
 |---|---|
 | Left-click floor | walk there |
-| Left-click the display case | walk over and examine it |
+| Left-click an object | walk over and examine / pick it up |
 | E | examine something adjacent |
 | C | character sheet |
 | I | inventory |
@@ -41,6 +41,20 @@ Open `project.godot` in Godot 4 and press F5.
 - `scripts/character.gd` (autoload `Character`) holds the state; `scripts/character_menu.gd` is the UI.
 - Data: `data/character.json` (starting state), `data/items.json`, `data/progression.json`.
 
+## Interactables and pick-ups
+Objects in `data/interactables/*.json` have a `kind`:
+- `dialogue` (default): opens the dialogue panel with passive and active skill checks.
+- `pickup`: has an `item` id from `data/items.json`. Interacting adds it to the inventory and removes it from the room for good.
+- `money`: has an `amount`. Interacting gives the money once; the object stays but is empty afterwards.
+
+Set `"blocking": false` for things lying on the floor. Objects can use a Kenney sprite (`sprite` + `dir`) or a standalone
+`image` + `origin` (the pixel that sits on the cell centre). The hard hat and wallet use generated placeholder images in
+`assets/placeholders/`, so real art can replace them by swapping the files.
+
+### Known gaps / TODO
+- **Attributes:** the design docs have no attribute layer (DE has four attributes that set each skill's cap). Add it to the
+  Skills doc, then replace the stopgap below. Reminder requested by the project owner.
+
 ### Assumptions to revisit
 - Each of your 6 skill groups plays the role of a DE attribute: its `score` in `skills.json` is the learning cap for
   its skills, and the signature skill raises that cap by 1.
@@ -54,4 +68,5 @@ Open `project.godot` in Godot 4 and press F5.
 godot --headless --path . --import
 godot --headless --path . --script tests/run_tests.gd
 godot --headless --path . --script tests/test_character.gd
+godot --headless --path . --script tests/test_pickups.gd
 ```

@@ -1,0 +1,10 @@
+{
+  "id": "hard_hat",
+  "name": "Hard Hat",
+  "kind": "pickup",
+  "item": "hard_hat",
+  "image": "res://assets/placeholders/hard_hat.png",
+  "origin": [64, 96],
+  "cell": [6, 2],
+  "blocking": false
+}
