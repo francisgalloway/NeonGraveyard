@@ -1,0 +1,40 @@
+{
+  "groups": [
+    {"name": "The Heartland", "color": "#d9a441", "skills": [
+      {"id": "homespun", "name": "Homespun", "level": 3, "description": "Folksy, pragmatic wisdom. Finds the human element in every situation.", "voice": "Warm, plainspoken, grounded in simple truths. Speaks in aphorisms. Never uses jargon. Prefers short, declarative sentences."},
+      {"id": "hardscrabble", "name": "Hardscrabble", "level": 4, "description": "Gritty, enduring resilience. The refusal to break under pressure.", "voice": "Gritty, stubborn, defiant. Endures hardship without complaint. Finds hope in sheer refusal to give up."},
+      {"id": "rustbelt", "name": "Rustbelt", "level": 4, "description": "Understands decay and industrial dignity. Finds beauty in things that have lasted.", "voice": "Reverent toward old things. Melancholic but not hopeless. Uses industrial and mechanical metaphors."},
+      {"id": "main_street", "name": "Main Street", "level": 3, "description": "Knows the rules of the bland, corporate world. Values order and protocol.", "voice": "Bureaucratic, procedural, mildly judgmental. Uses corporate jargon without irony. Suspicious of anything unorthodox."}
+    ]},
+    {"name": "The Mythic", "color": "#a77bd8", "skills": [
+      {"id": "frontier", "name": "Frontier", "level": 4, "description": "Yearns for the open digital wilderness. Believes there is always something over the next hill.", "voice": "Restless, yearning, romantic. Uses metaphors of maps, horizons, and uncharted territory. Impatient with boundaries."},
+      {"id": "destiny", "name": "Destiny", "level": 2, "description": "Sees the grand, inevitable narrative. Believes in grand arcs and final outcomes.", "voice": "Grandiose, fatalistic, certain. Speaks as if everything is inevitable. Never doubts. Never wavers."},
+      {"id": "talltale", "name": "Talltale", "level": 2, "description": "Leans into exaggeration and legend. Believes the myth is more true than the fact.", "voice": "Theatrical, exaggerated, playful. Turns every observation into a story. Loves a good yarn."},
+      {"id": "daemon", "name": "Daemon", "level": 4, "description": "Connects to the silent, background processes of the world. Notices what others miss.", "voice": "Quiet, observant, unsettling. Speaks in whispers and pauses. Finds meaning in silence and static. Speaks as if the machine is always listening."}
+    ]},
+    {"name": "The Social", "color": "#3fb6a8", "skills": [
+      {"id": "hierarchy", "name": "Hierarchy", "level": 2, "description": "Maps invisible power structures. Sees every interaction as a chess move.", "voice": "Calculating, strategic, cold. Speaks in terms of power and leverage. Uses political and military metaphors."},
+      {"id": "masquerade", "name": "Masquerade", "level": 3, "description": "Sees the masks people wear. Notices the seams in others' performances.", "voice": "Perceptive, theatrical, slightly cynical. Believes authenticity is just another performance."},
+      {"id": "ledger", "name": "Ledger", "level": 3, "description": "Tallies unspoken debts and favors. Believes nothing is free.", "voice": "Transactional, precise, quietly resentful. Keeps score of every favor given and received. Never forgets a slight. Never forgets a kindness either."},
+      {"id": "resonance", "name": "Resonance", "level": 3, "description": "Feels the emotional frequency of people and places. Senses the emotional weather of a room.", "voice": "Empathetic, poetic, slightly overwhelming. Uses synesthetic language—sounds have colors, silences have textures. Can be moved to tears by a server rack."}
+    ]},
+    {"name": "The Psyche", "color": "#d9544f", "skills": [
+      {"id": "reckoning", "name": "Reckoning", "level": 5, "description": "An obsessive archaeologist of your own shame. Believes every present failure is a just punishment for a past sin.", "voice": "Bitter, obsessive, self-flagellating. Digs up old shame like a forensic archaeologist. Never lets you forget. Never lets you heal."},
+      {"id": "puzzle_palace", "name": "Puzzle Palace", "level": 5, "description": "The obsessive, architectural curiosity to map a problem. Views every problem as a maze to be understood, not just solved.", "voice": "Curious, obsessive, architectural. Uses spatial metaphors—walls, corridors, dead ends. Gets lost in the joy of the puzzle. Never wants to leave."},
+      {"id": "echolalia", "name": "Echolalia", "level": 3, "description": "Repeats and refracts words, seeking hidden patterns. Believes the truth is hidden in syntax.", "voice": "Repetitive, analytical, obsessive. Finds hidden meanings in phrasing. Can get trapped in loops. Never takes words at face value."},
+      {"id": "keel", "name": "Keel", "level": 2, "description": "Your core stability, the ballast of your soul. The anchor in every storm.", "voice": "Calm, steady, reassuring. Speaks in slow, deliberate sentences. Uses naval and nautical metaphors. Never panics. Never rushes."}
+    ]},
+    {"name": "The Sensory", "color": "#e86fb0", "skills": [
+      {"id": "neon", "name": "Neon", "level": 2, "description": "Perceives the allure and sleaze of the artificial. Drawn to the bright and the fake.", "voice": "Seductive, artificial, alluring. Uses sensory language—flickering lights, buzzing signs, the smell of ozone. Believes the artificial is more honest than the natural."},
+      {"id": "asphalt", "name": "Asphalt", "level": 3, "description": "Grounded in the gritty, urban reality. Believes the truth is always tangible.", "voice": "Blunt, physical, grounded. Uses tactile language—touch, weight, texture. Impatient with abstraction."},
+      {"id": "diner", "name": "Diner", "level": 4, "description": "Finds comfort in greasy-spoon honesty and caffeine. The voice of endurance through small comforts.", "voice": "Weary, comforting, caffeinated. Speaks in the language of late nights and early mornings. Believes every problem looks better after a 3 AM breakfast."},
+      {"id": "smog", "name": "Smog", "level": 4, "description": "Tastes the lingering lies and pollution in the air. Trusts the smell of corruption over any official report.", "voice": "Suspicious, cynical, sharp. Uses metaphors of toxicity and contamination. Believes nothing is clean."}
+    ]},
+    {"name": "The Abstract", "color": "#5b9bd9", "skills": [
+      {"id": "kaleidoscope", "name": "Kaleidoscope", "level": 3, "description": "Sees the shifting, fractured patterns. Believes everything is connected in a pattern too large to see.", "voice": "Fractured, poetic, pattern-seeking. Uses metaphors of mirrors, prisms, and shifting shapes. Can be overwhelming."},
+      {"id": "rhetoric", "name": "Rhetoric", "level": 2, "description": "Loves the art of argument itself. Believes the argument is more important than the conclusion.", "voice": "Argumentative, eloquent, playful. Uses classical rhetorical devices—syllogisms, appeals, reframings. Never lets a bad point go unchallenged."},
+      {"id": "sublime", "name": "Sublime", "level": 3, "description": "Awestruck by terrifying, majestic concepts. Finds beauty in things too large to comprehend.", "voice": "Awestruck, terrified, elevated. Uses metaphors of scale—vastness, depth, infinity. Speaks slowly, as if in a trance."},
+      {"id": "shoestring", "name": "Shoestring", "level": 5, "description": "The genius for unstable, pragmatic fixes. Believes that \"working\" is more important than \"correct.\"", "voice": "Pragmatic, chaotic, slightly dangerous. Loves the hack, the workaround, the duct-tape patch. Never met a problem it couldn't make worse."}
+    ]}
+  ]
+}

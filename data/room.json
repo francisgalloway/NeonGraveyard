@@ -1,0 +1,20 @@
+{
+  "width": 9,
+  "height": 9,
+  "player_start": [2, 5],
+  "props": [
+    {"sprite": "floorCarpet", "dir": "S", "cell": [4, 4], "flat": true},
+    {"sprite": "bookcaseBooks", "dir": "E", "cell": [0, 1]},
+    {"sprite": "bookcaseEmpty", "dir": "E", "cell": [0, 2]},
+    {"sprite": "bookcaseBooksLadder", "dir": "E", "cell": [0, 3]},
+    {"sprite": "bookcaseHalfBooks", "dir": "E", "cell": [0, 6]},
+    {"sprite": "bookcaseBooks", "dir": "S", "cell": [2, 0]},
+    {"sprite": "bookcaseBooks", "dir": "S", "cell": [3, 0]},
+    {"sprite": "bookcaseEmptyLadder", "dir": "S", "cell": [4, 0]},
+    {"sprite": "bookcaseHalfEmpty", "dir": "S", "cell": [7, 0]},
+    {"sprite": "longTableChairs", "dir": "S", "cell": [3, 6]},
+    {"sprite": "libraryChair", "dir": "S", "cell": [7, 6]},
+    {"sprite": "candleStand", "dir": "S", "cell": [8, 2]}
+  ],
+  "interactables": ["display_case"]
+}

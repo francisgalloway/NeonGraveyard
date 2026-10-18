@@ -1,0 +1,29 @@
+{
+  "id": "display_case",
+  "name": "Display Case",
+  "sprite": "displayCase",
+  "dir": "S",
+  "cell": [6, 4],
+  "intro": "[placeholder] A glass-topped case, locked. Something is inside.",
+  "passives": [
+    {"skill": "smog", "difficulty": "easy", "line": "[placeholder] Dust on the glass, but the dust is wrong. Someone wiped it recently, then breathed on it."},
+    {"skill": "daemon", "difficulty": "medium", "line": "[placeholder] The case is humming. Not the building. The case."},
+    {"skill": "hierarchy", "difficulty": "easy", "line": "[placeholder] Whoever locked this up wanted it kept from people like you."},
+    {"skill": "reckoning", "difficulty": "challenging", "line": "[placeholder] You used to build things that sat behind glass. Admired. Unused."},
+    {"skill": "kaleidoscope", "difficulty": "high", "line": "[placeholder] (A passive check you can't pass yet. It stays silent.)"}
+  ],
+  "actives": [
+    {"id": "lock", "skill": "puzzle_palace", "difficulty": "medium", "red": false,
+     "label": "Work out how the lock is built",
+     "success": "[placeholder] Three pins and a bad idea. You see how it opens.",
+     "failure": "[placeholder] The mechanism folds into itself. You lose the thread."},
+    {"id": "paperclip", "skill": "shoestring", "difficulty": "challenging", "red": true,
+     "label": "Jimmy it open with a paperclip",
+     "success": "[placeholder] The lock gives with a crunch. It will never close again.",
+     "failure": "[placeholder] The paperclip snaps in the lock. That door is closed for good."},
+    {"id": "lift", "skill": "asphalt", "difficulty": "high", "red": false,
+     "label": "Lift the whole case by its edges",
+     "success": "[placeholder] It shifts. Something under it clicks.",
+     "failure": "[placeholder] It weighs more than it has any right to."}
+  ]
+}
