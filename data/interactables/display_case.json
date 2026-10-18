@@ -14,7 +14,7 @@
   ],
   "actives": [
     {"id": "lock", "skill": "puzzle_palace", "difficulty": "medium", "red": false,
-     "label": "Work out how the lock is built",
+     "label": "Work out how the lock is built", "xp": 25,
      "success": "[placeholder] Three pins and a bad idea. You see how it opens.",
      "failure": "[placeholder] The mechanism folds into itself. You lose the thread."},
     {"id": "paperclip", "skill": "shoestring", "difficulty": "challenging", "red": true,

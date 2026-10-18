@@ -3,7 +3,8 @@ extends Node2D
 ##
 ## Everything in the room comes from data/room.json and data/interactables/*.json.
 ## Controls: left-click to move or examine, E to examine something adjacent,
-## Tab for the skill sheet, F1 for the debug grid, Esc closes the dialogue.
+## C for the character sheet, I for the inventory, F1 for the debug grid,
+## Esc closes whatever is open.
 
 const ROOM_PATH := "res://data/room.json"
 const INTERACTABLE_DIR := "res://data/interactables/"
@@ -25,6 +26,7 @@ var click_targets: Array = []        # [{ "sprite": Sprite2D, "data": Dictionary
 var astar := AStarGrid2D.new()
 var player: Player
 var ui: DialogueUI
+var menu: CharacterMenu
 var pending: Dictionary = {}         # interactable to open when the player arrives
 
 var _decor: Node2D
@@ -87,6 +89,8 @@ func _ready() -> void:
 
 	ui = DialogueUI.new()
 	add_child(ui)
+	menu = CharacterMenu.new()
+	add_child(menu)
 
 
 func _load_json(path: String) -> Dictionary:
@@ -120,10 +124,10 @@ func _setup_pathfinding() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		if not ui.is_open():
+		if not ui.is_open() and not menu.is_open():
 			_handle_click(get_global_mouse_position())
 	elif event is InputEventKey and event.pressed and not event.echo:
-		if event.keycode == KEY_E and not ui.is_open():
+		if event.keycode == KEY_E and not ui.is_open() and not menu.is_open():
 			_interact_adjacent()
 		elif event.keycode == KEY_F1:
 			_overlay.visible = not _overlay.visible

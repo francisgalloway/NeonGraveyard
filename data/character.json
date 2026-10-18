@@ -1,0 +1,20 @@
+{
+  "currency": "$",
+  "money": 23,
+  "xp": 40,
+  "level": 2,
+  "skill_points": 2,
+  "signature_skill": "puzzle_palace",
+  "equipment": {
+    "neckwear": "omnicorp_lanyard",
+    "jacket": "company_blazer",
+    "shirt": "dress_shirt",
+    "pants": "corduroy_slacks",
+    "shoes": "squeaky_loafers"
+  },
+  "inventory": ["sun_cap", "wire_rim_glasses", "antistatic_gloves", "paperclip", "blank_floppy", "instant_coffee"],
+  "health_damage": 1,
+  "morale_damage": 0,
+  "health_charges": 2,
+  "morale_charges": 1
+}

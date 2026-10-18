@@ -94,7 +94,8 @@ func _initialize() -> void:
 	var before: int = scene.ui._log.get_child_count()
 	scene.ui._attempt(data["actives"][0])
 	await process_frame
-	check(scene.ui._log.get_child_count() == before + 2, "active check adds its prompt and a result window")
+	var lock_ok: bool = state.check_log["display_case:lock"]["success"]
+	check(scene.ui._log.get_child_count() == before + (3 if lock_ok else 2), "active check adds its prompt, a result window, and a '+XP' line on success")
 	scene.ui.close()
 	check(not scene.ui.is_open(), "dialogue closes")
 

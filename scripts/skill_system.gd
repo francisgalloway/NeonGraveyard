@@ -45,11 +45,21 @@ func load_skills(path: String = "res://data/skills.json") -> void:
 			skills[id] = s
 			levels[id] = int(s["level"])
 			ids.append(id)
-		groups.append({"name": g["name"], "color": group_color, "skills": ids})
+		groups.append({"name": g["name"], "color": group_color, "score": int(g.get("score", 3)), "skills": ids})
 
 
-func get_level(id: String) -> int:
+## The learned level: points the player has spent, without clothing modifiers.
+func get_base_level(id: String) -> int:
 	return int(levels.get(id, 0))
+
+
+## The level used for checks: learned level plus modifiers from worn clothing.
+func get_level(id: String) -> int:
+	var bonus := 0
+	var character := get_node_or_null("/root/Character")
+	if character != null:
+		bonus = character.equipment_bonus(id)
+	return get_base_level(id) + bonus
 
 
 func set_level(id: String, value: int) -> void:

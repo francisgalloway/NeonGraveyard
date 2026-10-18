@@ -1,6 +1,6 @@
 class_name DialogueUI
 extends CanvasLayer
-## DOS-style dialogue panel with inner-voice "windows", plus a skill sheet (Tab).
+## DOS-style dialogue panel with inner-voice "windows".
 ##
 ## open(data) takes an interactable dictionary (see data/interactables/*.json):
 ## shows the intro, fires any passive checks that pass as voice windows, then
@@ -20,7 +20,6 @@ var _title: Label
 var _scroll: ScrollContainer
 var _log: VBoxContainer
 var _choices: VBoxContainer
-var _sheet: PanelContainer
 var _data: Dictionary = {}
 var _is_open := false
 
@@ -38,7 +37,6 @@ func _ready() -> void:
 	_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_root)
 	_build_dialogue()
-	_build_sheet()
 	_build_hint()
 
 
@@ -107,52 +105,9 @@ func _build_dialogue() -> void:
 	vb.add_child(_choices)
 
 
-func _build_sheet() -> void:
-	_sheet = PanelContainer.new()
-	_sheet.add_theme_stylebox_override("panel", _box(BORDER))
-	_sheet.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	_sheet.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	_sheet.grow_vertical = Control.GROW_DIRECTION_BOTH
-	_sheet.visible = false
-	_root.add_child(_sheet)
-
-	var outer := VBoxContainer.new()
-	outer.add_theme_constant_override("separation", 10)
-	_sheet.add_child(outer)
-	var head := Label.new()
-	head.text = "> SKILLS.EXE   [Tab] close"
-	head.add_theme_color_override("font_color", BORDER)
-	outer.add_child(head)
-
-	var cols := GridContainer.new()
-	cols.columns = 3
-	cols.add_theme_constant_override("h_separation", 40)
-	cols.add_theme_constant_override("v_separation", 16)
-	outer.add_child(cols)
-	for g in Skills.groups:
-		var col := VBoxContainer.new()
-		cols.add_child(col)
-		var gl := Label.new()
-		gl.text = String(g["name"]).to_upper()
-		gl.add_theme_color_override("font_color", g["color"])
-		col.add_child(gl)
-		for id in g["skills"]:
-			var row := HBoxContainer.new()
-			col.add_child(row)
-			var n := Label.new()
-			n.text = Skills.skill_name(id)
-			n.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-			n.tooltip_text = String(Skills.skills[id]["description"])
-			row.add_child(n)
-			var lv := Label.new()
-			lv.text = str(Skills.get_level(id))
-			lv.add_theme_color_override("font_color", g["color"])
-			row.add_child(lv)
-
-
 func _build_hint() -> void:
 	var hint := Label.new()
-	hint.text = "LMB: move / examine    E: examine adjacent    Tab: skills    F1: debug grid    Esc: close"
+	hint.text = "LMB: move / examine    E: examine adjacent    C: character    I: inventory    F1: debug grid    Esc: close"
 	hint.add_theme_color_override("font_color", DIM)
 	hint.position = Vector2(12, 8)
 	_root.add_child(hint)
@@ -162,10 +117,7 @@ func _build_hint() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
-		if event.keycode == KEY_TAB:
-			_sheet.visible = not _sheet.visible
-			get_viewport().set_input_as_handled()
-		elif event.keycode == KEY_ESCAPE and _is_open:
+		if event.keycode == KEY_ESCAPE and _is_open:
 			close()
 			get_viewport().set_input_as_handled()
 
@@ -249,6 +201,9 @@ func _attempt(a: Dictionary) -> void:
 	_add_text("> %s" % String(a["label"]), DIM)
 	_add_voice(skill, "Active: %s %d - %s" % [Skills.difficulty_label(target), target, "SUCCESS" if ok else "FAILURE"],
 		"%s\n%s" % [String(a["success"] if ok else a["failure"]), roll_text])
+	if ok and a.has("xp"):
+		Character.add_xp(int(a["xp"]))
+		_add_text("+%d XP" % int(a["xp"]), DIM)
 	_rebuild_choices()
 	_scroll_to_bottom()
 
