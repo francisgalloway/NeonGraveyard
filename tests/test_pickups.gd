@@ -41,7 +41,7 @@ func _initialize() -> void:
 	var hat := _find(scene, "hard_hat")
 	var wallet := _find(scene, "wallet")
 	check(not hat.is_empty() and not wallet.is_empty(), "hard hat and wallet are in the room")
-	check(scene.click_targets.size() == 3, "room has 3 interactables (case, hat, wallet)")
+	check(scene.click_targets.size() == 4, "room has 4 interactables (case, hat, wallet, footlocker)")
 	check(not scene.solid.has(Vector2i(6, 2)) and not scene.solid.has(Vector2i(2, 3)), "pick-ups do not block movement")
 	check(scene.interactables.has(Vector2i(6, 2)) and scene.interactables.has(Vector2i(2, 3)), "pick-ups are interactable")
 
@@ -67,7 +67,7 @@ func _initialize() -> void:
 	check(took and ch.inventory.size() == inv0 + 1, "walking up to the hard hat puts it in the inventory")
 	await process_frame
 	check(not scene.interactables.has(Vector2i(6, 2)), "the hat is no longer interactable")
-	check(_find(scene, "hard_hat").is_empty() and scene.click_targets.size() == 2, "the hat's sprite is removed from the room")
+	check(_find(scene, "hard_hat").is_empty() and scene.click_targets.size() == 3, "the hat's sprite is removed from the room")
 	check(state.has_flag("taken:hard_hat"), "pick-up is recorded so it stays gone")
 
 	# --- the hat works as clothing -------------------------------------------

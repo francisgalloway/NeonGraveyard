@@ -16,5 +16,5 @@
     {"sprite": "libraryChair", "dir": "S", "cell": [7, 6]},
     {"sprite": "candleStand", "dir": "S", "cell": [8, 2]}
   ],
-  "interactables": ["display_case", "hard_hat", "wallet"]
+  "interactables": ["display_case", "hard_hat", "wallet", "footlocker"]
 }

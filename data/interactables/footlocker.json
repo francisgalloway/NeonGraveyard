@@ -1,0 +1,9 @@
+{
+  "id": "footlocker",
+  "name": "Footlocker",
+  "kind": "container",
+  "image": "res://assets/placeholders/footlocker.png",
+  "origin": [64, 96],
+  "cell": [7, 4],
+  "contents": ["instant_coffee", "blank_floppy", "corduroy_slacks"]
+}

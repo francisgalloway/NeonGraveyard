@@ -46,6 +46,7 @@ Objects in `data/interactables/*.json` have a `kind`:
 - `dialogue` (default): opens the dialogue panel with passive and active skill checks.
 - `pickup`: has an `item` id from `data/items.json`. Interacting adds it to the inventory and removes it from the room for good.
 - `money`: has an `amount`. Interacting gives the money once; the object stays but is empty afterwards.
+- `container`: has `contents`, a list of item ids. Interacting opens a pop-up with the contents beside your inventory; click an item to move it across (take or store), or use TAKE ALL. Contents persist per container id in `GameState.containers`. Example: `data/interactables/footlocker.json`.
 
 Set `"blocking": false` for things lying on the floor. Objects can use a Kenney sprite (`sprite` + `dir`) or a standalone
 `image` + `origin` (the pixel that sits on the cell centre). The hard hat and wallet use generated placeholder images in
@@ -69,4 +70,5 @@ godot --headless --path . --import
 godot --headless --path . --script tests/run_tests.gd
 godot --headless --path . --script tests/test_character.gd
 godot --headless --path . --script tests/test_pickups.gd
+godot --headless --path . --script tests/test_containers.gd
 ```

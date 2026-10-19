@@ -27,6 +27,7 @@ var astar := AStarGrid2D.new()
 var player: Player
 var ui: DialogueUI
 var menu: CharacterMenu
+var container_ui: ContainerUI
 var pending: Dictionary = {}         # interactable to open when the player arrives
 
 var _decor: Node2D
@@ -95,6 +96,8 @@ func _ready() -> void:
 	add_child(ui)
 	menu = CharacterMenu.new()
 	add_child(menu)
+	container_ui = ContainerUI.new()
+	add_child(container_ui)
 
 
 func _load_json(path: String) -> Dictionary:
@@ -133,14 +136,18 @@ func _setup_pathfinding() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		if not ui.is_open() and not menu.is_open():
+		if not _blocked():
 			_handle_click(get_global_mouse_position())
 	elif event is InputEventKey and event.pressed and not event.echo:
-		if event.keycode == KEY_E and not ui.is_open() and not menu.is_open():
+		if event.keycode == KEY_E and not _blocked():
 			_interact_adjacent()
 		elif event.keycode == KEY_F1:
 			_overlay.visible = not _overlay.visible
 			_overlay.queue_redraw()
+
+
+func _blocked() -> bool:
+	return ui.is_open() or menu.is_open() or container_ui.is_open()
 
 
 func _handle_click(global_pos: Vector2) -> void:
@@ -232,6 +239,8 @@ func _open(data: Dictionary) -> void:
 			_pick_up(data)
 		"money":
 			_loot_money(data)
+		"container":
+			container_ui.open(data)
 		_:
 			ui.open(data)
 

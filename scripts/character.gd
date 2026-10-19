@@ -192,6 +192,15 @@ func add_item(item_id: String) -> bool:
 	return true
 
 
+func remove_item(item_id: String) -> bool:
+	var i := inventory.find(item_id)
+	if i < 0:
+		return false
+	inventory.remove_at(i)
+	changed.emit()
+	return true
+
+
 ## All clothes the player owns (worn first, in slot order), or all non-clothes items.
 func owned_items(type: String) -> Array[String]:
 	var out: Array[String] = []

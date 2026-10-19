@@ -7,6 +7,7 @@ extends Node
 
 var flags: Dictionary = {}
 var check_log: Dictionary = {}  # check key -> { "level": int, "success": bool }
+var containers: Dictionary = {}  # container id -> Array of item ids still inside
 
 
 func can_attempt(key: String, skill: String, red: bool) -> bool:
@@ -28,3 +29,11 @@ func set_flag(key: String, value: Variant = true) -> void:
 
 func has_flag(key: String) -> bool:
 	return flags.has(key)
+
+
+## Contents of a container; the first look seeds it from the container's data.
+func container_items(data: Dictionary) -> Array:
+	var id := String(data["id"])
+	if not containers.has(id):
+		containers[id] = Array(data.get("contents", []))
+	return containers[id]
